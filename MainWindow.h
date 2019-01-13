@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "wagomodule.h"
+#include "WagoModule.h"
 #include "ISlot.h"
 
 namespace Ui {
@@ -20,10 +20,6 @@ public:
 private:
     Ui::MainWindow *ui;
     WagoModule* wagoModule;
-    QVector<ISlot*> slotVector;
-
-private slots:
-    void DataChanged();
 };
 
 #endif // MAINWINDOW_H

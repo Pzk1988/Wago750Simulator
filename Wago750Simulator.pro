@@ -24,19 +24,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    wagomodule.cpp \
-    modbus.cpp \
-    ModbusTcp.cpp
+    ModbusTcp.cpp \
+    Main.cpp \
+    MainWindow.cpp \
+    WagoModule.cpp
 
 HEADERS += \
-        mainwindow.h \
-    wagomodule.h \
-    modbus.h \
-    modbus_exception.h \
+    ModbusTcp.h \
     ISlot.h \
-    ModbusTcp.h
+    Utilities/HelperClass.h \
+    MainWindow.h \
+    WagoModule.h
 
 FORMS += \
         mainwindow.ui

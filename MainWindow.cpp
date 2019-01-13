@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "MainWindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -7,14 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    wagoModule = new WagoModule(&slotVector);
-    connect(wagoModule, SIGNAL(DataChanged()), this, SLOT(DataChanged()));
-
-}
-
-void MainWindow::DataChanged()
-{
-
+    wagoModule = new WagoModule();
 }
 
 MainWindow::~MainWindow()

@@ -1,4 +1,4 @@
-#include "wagomodule.h"
+#include "WagoModule.h"
 #include <QDebug>
 #include <QTcpSocket>
 
@@ -19,6 +19,15 @@ WagoModule::WagoModule()
     }
 }
 
+WagoModule::~WagoModule()
+{
+    server->close();
+    server->deleteLater();
+    delete server;
+
+    delete modbusTcp;
+}
+
 void WagoModule::NewConnection()
 {
     QTcpSocket *socket = server->nextPendingConnection();
@@ -33,10 +42,11 @@ void WagoModule::ReadReady()
 {
      QTcpSocket* socket = qobject_cast<QTcpSocket*>(sender());
      QByteArray array = socket->readAll();
-     QByteArray* response = modbusTcp->HandlePacket(array);
+     QByteArray* response = modbusTcp->HandleRequest(array);
      if( response != nullptr)
      {
-         socket->write(response);
+         socket->write(*response);
+         delete response;
      }
 }
 
