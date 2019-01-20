@@ -2,8 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "WagoModule.h"
-#include "ISlot.h"
+#include "Wago750System.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,8 +17,7 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
-    WagoModule* wagoModule;
+    Wago750System* wago750System;
 };
 
 #endif // MAINWINDOW_H

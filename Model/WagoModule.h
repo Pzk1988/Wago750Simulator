@@ -8,7 +8,7 @@
 #include <QObject>
 
 // Local includes
-#include "ISlot.h"
+#include "InternalMemory.h"
 #include "ModbusTcp.h"
 
 class WagoModule: public QObject
@@ -21,13 +21,16 @@ public:
 private:
     QTcpServer *server;
     QList<QTcpSocket*> clientsList;
-    QVector<ISlot*> slotVector;
+    InternalMemory internalMemory;
     ModbusTcp* modbusTcp;
 
 private slots:
     void NewConnection();
     void ReadReady();
     void Disconnect();
+
+signals:
+    void ConnectionStatus(bool status);
 };
 
 #endif // WAGOMODULE_H

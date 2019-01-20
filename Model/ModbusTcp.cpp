@@ -2,7 +2,7 @@
 #include <QDebug>
 #include "Utilities/HelperClass.h"
 
-ModbusTcp::ModbusTcp(QVector<ISlot*> &slotList) : slotList(slotList)
+ModbusTcp::ModbusTcp(InternalMemory &internalMemory) : internalMemory(internalMemory)
 {
 
 }
@@ -44,13 +44,21 @@ QByteArray* ModbusTcp::HandleRequest(QByteArray &request)
 
 QByteArray* ModbusTcp::ReadInputRegisters(QByteArray &request)
 {
-    qDebug() << "ReadInputRegisters";
-
     QByteArray* response = nullptr;
     quint16 len = HelperClass::BeToUint16(reinterpret_cast<quint8*>( &request.data()[4] ));
 
     if(len == 4 && request.size() == len + MODBUS_TCP_HEADER_LEN)
     {
+        quint16 registerAddress = HelperClass::BeToUint16( reinterpret_cast<quint8*>( &request.data()[8] ));
+        quint16 registerNumber = HelperClass::BeToUint16( reinterpret_cast<quint8*>( &request.data()[10] ));
+        qDebug().nospace() << "ReadInputRegisters: 0x" << hex << registerAddress << ", number: " << registerNumber;
+
+        if( (quint32)registerAddress + registerNumber <= 0xFFFF )
+        {
+            response = new QByteArray();
+            response->append(quint16(registerNumber*2));
+
+        }
 
     }
     return response;

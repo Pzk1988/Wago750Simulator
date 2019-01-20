@@ -1,16 +1,15 @@
 #include "MainWindow.h"
-#include "ui_mainwindow.h"
+#include "QPushButton"
+#include "Wago750System.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent)
 {
-    ui->setupUi(this);
-
-    wagoModule = new WagoModule();
+    wago750System = new Wago750System();
+    setCentralWidget(wago750System);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete wago750System;
 }

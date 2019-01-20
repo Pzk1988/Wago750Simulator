@@ -2,7 +2,7 @@
 #define MODBUSTCP_H
 
 #include <QObject>
-#include "islot.h"
+#include "internalmemory.h"
 
 class ModbusTcp
 {
@@ -34,12 +34,12 @@ class ModbusTcp
     };
 
 public:
-    ModbusTcp(QVector<ISlot*> &slotList);
+    ModbusTcp(InternalMemory &internalMemory);
     ~ModbusTcp();
     QByteArray* HandleRequest(QByteArray &request);
 
 private:
-    QVector<ISlot*> &slotList;
+    InternalMemory &internalMemory;
     //    void modbus_read_coils(int address, int amount, bool* buffer);
     //    void modbus_read_input_bits(int address, int amount, bool* buffer);
     //    void modbus_read_holding_registers(int address, int amount, uint16_t *buffer);

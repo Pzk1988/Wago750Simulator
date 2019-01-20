@@ -21,20 +21,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
+CONFIG += c++11
 
 SOURCES += \
-    ModbusTcp.cpp \
     Main.cpp \
     MainWindow.cpp \
-    WagoModule.cpp
+    Model/ModbusTcp.cpp \
+    Model/WagoModule.cpp \
+    Model/InternalMemory.cpp \
+    View/Wago750/CustomWidget.cpp \
+    View/Wago750/WagoDigitalIn.cpp \
+    View/Wago750/InOut.cpp \
+    View/Wago750/WagoDigitalOut.cpp \
+    View/Wago750/Wago750System.cpp
 
 HEADERS += \
-    ModbusTcp.h \
-    ISlot.h \
-    Utilities/HelperClass.h \
     MainWindow.h \
-    WagoModule.h
+    Model/ModbusTcp.h \
+    Model/WagoModule.h \
+    Model/InternalMemory.h \
+    Utilities/HelperClass.h \
+    View/Wago750/CustomWidget.h \
+    View/Wago750/WagoDigitalIn.h \
+    View/Wago750/InOut.h \
+    View/Wago750/WagoDigitalOut.h \
+    View/Wago750/Wago750System.h
 
-FORMS += \
-        mainwindow.ui
+FORMS +=
+
+INCLUDEPATH += Model \
+               Utilities \
+               View\Wago750

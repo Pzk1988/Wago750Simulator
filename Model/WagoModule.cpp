@@ -5,7 +5,7 @@
 WagoModule::WagoModule()
 {
     server = new QTcpServer();
-    modbusTcp = new ModbusTcp(slotVector);
+    modbusTcp = new ModbusTcp(internalMemory);
 
     connect(server, SIGNAL(newConnection()),
                      this, SLOT(NewConnection()));
@@ -17,6 +17,7 @@ WagoModule::WagoModule()
     {
         qDebug() << "Connected to server";
     }
+    emit ConnectionStatus(false);
 }
 
 WagoModule::~WagoModule()
@@ -35,6 +36,7 @@ void WagoModule::NewConnection()
     connect(socket, SIGNAL(readyRead()), SLOT(ReadReady()));
     connect(socket, SIGNAL(disconnected()), SLOT(Disconnect()));
     clientsList.append(socket);
+    emit ConnectionStatus(true);
     qDebug() << "Connected cliens " << clientsList.size();
 }
 
@@ -57,4 +59,9 @@ void WagoModule::Disconnect()
     socket->deleteLater();
     clientsList.removeOne(socket);
     qDebug() << "Connected cliens " << clientsList.size();
+
+    if(clientsList.size() == 0)
+    {
+        emit ConnectionStatus(false);
+    }
 }
