@@ -3,16 +3,23 @@
 
 #include <QObject>
 
-class InternalMemory
+class InternalMemory : public QObject
 {
+    Q_OBJECT
 public:
     InternalMemory();
-    bool SetData(quint16 address, quint16 *value, quint8 len);
-    bool GetData(quint16 address, quint16 *value, quint8 len);
+    bool SetReadData(quint16 address, quint16 *value, quint8 len);
+    bool GetReadData(quint16 address, quint8 *value, quint8 len);
+    bool SetWriteData(quint16 address, quint8 *value, quint8 len);
+    bool GetWriteData(quint16 address, quint16 *value, quint8 len);
 
 private:
-    quint16 RegisterReadArea[0xFFFF];
-    quint16 RegisterWriteArea[0xFFFF];
+    static const int REGISTER_SIZE = 0xFFFF;
+    quint16 RegisterReadArea[REGISTER_SIZE];
+    quint16 RegisterWriteArea[REGISTER_SIZE];
+
+signals:
+    void OutputChanged(quint8 slotId, quint16 value);
 };
 
 #endif // INTERNALMEMORY_H

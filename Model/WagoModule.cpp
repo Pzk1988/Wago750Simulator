@@ -1,6 +1,7 @@
 #include "WagoModule.h"
 #include <QDebug>
 #include <QTcpSocket>
+#include "WagoSlot.h"
 
 WagoModule::WagoModule()
 {
@@ -8,7 +9,11 @@ WagoModule::WagoModule()
     modbusTcp = new ModbusTcp(internalMemory);
 
     connect(server, SIGNAL(newConnection()),
-                     this, SLOT(NewConnection()));
+            this, SLOT(NewConnection()));
+
+    connect(&internalMemory, SIGNAL(OutputChanged(quint8, quint16)),
+            this, SIGNAL(OutputChanged(quint8,quint16)));
+
     if(!server->listen(QHostAddress::Any, 802))
     {
         qDebug() << "Could not start tcp server";
@@ -42,14 +47,15 @@ void WagoModule::NewConnection()
 
 void WagoModule::ReadReady()
 {
-     QTcpSocket* socket = qobject_cast<QTcpSocket*>(sender());
-     QByteArray array = socket->readAll();
-     QByteArray* response = modbusTcp->HandleRequest(array);
-     if( response != nullptr)
-     {
-         socket->write(*response);
-         delete response;
-     }
+    quint8 response[MAX_RESP_LEN];
+    QTcpSocket* socket = qobject_cast<QTcpSocket*>(sender());
+    QByteArray request = socket->readAll();
+
+    qint64 len = modbusTcp->HandleRequest(request, response);
+    if( len != 0)
+    {
+        socket->write((const char*)response, len);
+    }
 }
 
 void WagoModule::Disconnect()
@@ -64,4 +70,11 @@ void WagoModule::Disconnect()
     {
         emit ConnectionStatus(false);
     }
+}
+
+void WagoModule::InputChanged(quint16 value)
+{
+    WagoSlot* wagoSlot = static_cast<WagoSlot*>(QObject::sender());
+    int slotId = wagoSlot->GetId();
+    internalMemory.SetReadData(slotId, &value, 1);
 }

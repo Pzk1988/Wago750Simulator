@@ -4,8 +4,7 @@
 #include <QWidget>
 #include <QHBoxLayout>
 #include "CustomWidget.h"
-#include "WagoDigitalIn.h"
-#include "WagoDigitalOut.h"
+#include "WagoSlot.h"
 #include "WagoModule.h"
 
 class Wago750System : public QWidget
@@ -17,9 +16,14 @@ public:
 private:
     QHBoxLayout* mainLayout;
     CustomWidget* customWidget;
-    QVector<WagoDigitalIn*> inList;
-    QVector<WagoDigitalOut*> outList;
+    QVector<WagoSlot*> slotList;
     WagoModule* wagoModule;
+
+    static const int DIGITAL_IN_NUMBER = 5;
+    static const int DIGITAL_OUT_NUMBER = 5;
+
+private slots:
+    void OutputChanged(quint8 slotId, quint16 value);
 };
 
 #endif // WAGO750SYSTEM_H

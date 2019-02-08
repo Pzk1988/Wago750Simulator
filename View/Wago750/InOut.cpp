@@ -2,7 +2,7 @@
 #include <QPainter>
 #include <QDebug>
 
-InOut::InOut(int id, QWidget *parent, InOutType type) : QWidget(parent), id(id), type(type)
+InOut::InOut(int id, InOutType type, QWidget *parent) : QWidget(parent), id(id), type(type)
 {
     state = false;
     brush = Qt::gray;

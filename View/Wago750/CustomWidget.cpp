@@ -14,7 +14,7 @@ CustomWidget::CustomWidget(QWidget *parent) : QWidget(parent)
 void CustomWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    QPixmap wago750_352("C:/Users/PKnapik/Documents/QtProject/Wago750Simulator/Resources/750-352.png");
+    QPixmap wago750_352(":/WagoImg/Resources/750-352.png");
 
     painter.drawPixmap(0, 0, 186, 366, wago750_352);
 

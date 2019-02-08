@@ -21,7 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-CONFIG += c++11
+CONFIG += c++11 -Wno-unused-parameter
 
 SOURCES += \
     Main.cpp \
@@ -33,7 +33,8 @@ SOURCES += \
     View/Wago750/WagoDigitalIn.cpp \
     View/Wago750/InOut.cpp \
     View/Wago750/WagoDigitalOut.cpp \
-    View/Wago750/Wago750System.cpp
+    View/Wago750/Wago750System.cpp \
+    View/Wago750/WagoSlot.cpp
 
 HEADERS += \
     MainWindow.h \
@@ -45,10 +46,16 @@ HEADERS += \
     View/Wago750/WagoDigitalIn.h \
     View/Wago750/InOut.h \
     View/Wago750/WagoDigitalOut.h \
-    View/Wago750/Wago750System.h
+    View/Wago750/Wago750System.h \
+    View/Wago750/WagoSlot.h
 
 FORMS +=
 
 INCLUDEPATH += Model \
                Utilities \
                View\Wago750
+
+RESOURCES += \
+    resources.qrc
+
+CONFIG += static

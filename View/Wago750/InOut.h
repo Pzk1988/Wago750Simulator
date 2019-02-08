@@ -13,7 +13,7 @@ class InOut : public QWidget
 {
     Q_OBJECT
 public:
-    explicit InOut(int id, QWidget *parent = nullptr, InOutType type = INPUT);
+    explicit InOut(int id, InOutType type, QWidget *parent = nullptr);
     void SetState(bool state);
 
 protected:

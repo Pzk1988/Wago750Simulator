@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/WagoImg">
+        <file>Resources/750-352.png</file>
+        <file>Resources/750-1504.png</file>
+        <file>Resources/750-1604.png</file>
+    </qresource>
+</RCC>

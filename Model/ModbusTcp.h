@@ -36,19 +36,19 @@ class ModbusTcp
 public:
     ModbusTcp(InternalMemory &internalMemory);
     ~ModbusTcp();
-    QByteArray* HandleRequest(QByteArray &request);
+    quint64 HandleRequest(QByteArray &request, quint8* response);
 
 private:
     InternalMemory &internalMemory;
     //    void modbus_read_coils(int address, int amount, bool* buffer);
     //    void modbus_read_input_bits(int address, int amount, bool* buffer);
     //    void modbus_read_holding_registers(int address, int amount, uint16_t *buffer);
-    QByteArray* ReadInputRegisters(QByteArray &request);
+    quint64 ReadInputRegisters(QByteArray &request, quint8 *pData);
 
     //    void modbus_write_coil(int address, bool to_write);
     //    void modbus_write_register(int address, uint16_t value);
     //    void modbus_write_coils(int address, int amount, bool* value );
-    QByteArray* WriteRegisters(QByteArray &request);
+    quint64 WriteMultipleRegisters(QByteArray &request);
 };
 
 #endif // MODBUSTCP_H
