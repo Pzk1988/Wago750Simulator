@@ -7,7 +7,7 @@
 class ModbusTcp
 {
     static const int MAX_MSG_LENGTH = 260;
-    static const int MODBUS_TCP_HEADER_LEN = 8;
+    static const int MODBUS_TCP_HEADER_LEN = 6;
 
     ///Function Code
     enum{

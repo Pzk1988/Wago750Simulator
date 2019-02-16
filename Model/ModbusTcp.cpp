@@ -21,6 +21,7 @@ quint64 ModbusTcp::HandleRequest(QByteArray &request, quint8* response)
         {
             case READ_INPUT_REGS:
             {
+                qDebug() << "READ_INPUT_REGS";
                 respLen = ReadInputRegisters(request, &response[9]);
 
                 response[0] = request[0];
@@ -36,6 +37,7 @@ quint64 ModbusTcp::HandleRequest(QByteArray &request, quint8* response)
             }
             case WRITE_REGS:
             {
+                qDebug() << "WRITE_REGS";
                 respLen = WriteMultipleRegisters(request);
 
                 response[0] = request[0];
@@ -65,7 +67,7 @@ quint64 ModbusTcp::ReadInputRegisters(QByteArray &request, quint8* pData)
 {
     quint16 len = HelperClass::BeToUint16(reinterpret_cast<quint8*>( &request.data()[4] ));
 
-    if(len == 4 && request.size() == len + MODBUS_TCP_HEADER_LEN)
+    if(len == 6 && request.size() == len + MODBUS_TCP_HEADER_LEN)
     {
         quint16 registerAddress = HelperClass::BeToUint16( reinterpret_cast<quint8*>( &request.data()[8] ));
         quint16 registerNumber = HelperClass::BeToUint16( reinterpret_cast<quint8*>( &request.data()[10] ));
@@ -77,6 +79,10 @@ quint64 ModbusTcp::ReadInputRegisters(QByteArray &request, quint8* pData)
             return registerNumber;
         }
 
+    }
+    else
+    {
+        qDebug("Invalid param len: %d, req size: %d, expected: %d + %d", len, request.size(), len, MODBUS_TCP_HEADER_LEN);
     }
     return 0;
 }

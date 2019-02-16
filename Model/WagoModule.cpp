@@ -14,7 +14,7 @@ WagoModule::WagoModule()
     connect(&internalMemory, SIGNAL(OutputChanged(quint8, quint16)),
             this, SIGNAL(OutputChanged(quint8,quint16)));
 
-    if(!server->listen(QHostAddress::Any, 802))
+    if(!server->listen(QHostAddress::Any, 502))
     {
         qDebug() << "Could not start tcp server";
     }
